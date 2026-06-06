@@ -1,6 +1,7 @@
 from itertools import combinations
 from sympy import Poly, symbols, GF, nextprime, ZZ, roots
 import math
+import time
 # Poly - базовый класс многочлена, symbols - переменные,
 # GF - конечные поля Галуа, nextprime - генерация простых чисел,
 # ZZ - кольцо целых чисел, roots - быстрый поиск рациональных корней.
@@ -184,9 +185,17 @@ def factorization_final(poly_list):
 
 user_line = input("Введите коэффициенты через пробел (от старшей степени к младшей): ")
 if user_line.strip():
-  user_coeffs = [int(val) for val in user_line.split()]
-  final_factors = factorization_final(user_coeffs)
-  result_output = " * ".join([format_poly(f) for f in final_factors])
-  print(f"\nИтоговое разложение:")
-  print(result_output)
-  print("\nУспешное завершение работы алгоритма")
+    user_coeffs = [int(val) for val in user_line.split()]
+
+    #Засекаем время перед началом вычислений
+    start_time = time.perf_counter()
+
+    final_factors = factorization_final(user_coeffs)
+
+    #Засекаем время сразу после окончания вычислений
+    end_time = time.perf_counter()
+    result_output = " * ".join([format_poly(f) for f in final_factors])
+    print(f"\nИтоговое разложение:")
+    print(result_output)
+    print(f"\nВремя выполнения алгоритма: {end_time - start_time:.6f} секунд")
+    print("\nУспешное завершение работы алгоритма")
